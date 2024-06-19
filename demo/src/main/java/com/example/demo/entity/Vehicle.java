@@ -19,6 +19,12 @@ public class Vehicle {
             generator = "vehicle_sequence"
     )
     private Long vehicle_id;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private Owner owner;
+
+
     private Long chaseNumber;
     private String impoundId;
     private String ownerName;

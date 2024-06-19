@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Owner;
-import com.example.demo.payload.request.response.AddOwner;
+import com.example.demo.payload.request.response.AddOwnerRequest;
 import com.example.demo.repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ public class OwnerService {
     private final OwnerRepository ownerRepository;
     public OwnerService(OwnerRepository ownerRepository) {this.ownerRepository = ownerRepository;}
 
-    public Long addOwner(AddOwner addowner) {
+    public Long addOwner(AddOwnerRequest addowner) {
         Owner owner = new Owner(addowner.getOwnerId()
                 ,addowner.getNationality()
                 , addowner.getTransactionNo()

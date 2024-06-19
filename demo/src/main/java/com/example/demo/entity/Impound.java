@@ -20,6 +20,11 @@ public class Impound {
             generator = "impound_sequence"
     )
     private Long impoundId;
+
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id")
+    private Vehicle vehicle;
+
     private String impoundOrigin;
     @Enumerated(EnumType.STRING)
     public ImpoundType impoundType ;

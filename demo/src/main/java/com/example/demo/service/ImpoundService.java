@@ -18,4 +18,21 @@ public class ImpoundService {
       return  impoundRepository.save(impound).getImpoundId();
     }
 
+    public CreateImpoundRequest getImpoundDetails(Long impoundId)
+    {
+        Impound impound=impoundRepository.findById(impoundId).orElse(null);
+
+        CreateImpoundRequest newImpoundRequest = new CreateImpoundRequest(
+               impound.getImpoundOrigin(),
+                impound.getImpoundType().toString(),
+                impound.getImpoundAuthority(),
+                impound.getVehicleLocation(),
+                impound.getImpoundDate(),
+                impound.getLinkedToReport(),
+                impound.getReportNum()
+                );
+        return newImpoundRequest;
+
+    }
+
 }
