@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Impound;
 import com.example.demo.payload.request.response.CreateImpoundRequest;
+import com.example.demo.payload.request.response.GetImpoundResponse;
 import com.example.demo.repository.ImpoundRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,17 +15,17 @@ public class ImpoundService {
 
     public Long createImpoundRequest(CreateImpoundRequest createImpoundRequest)
     {
-        Impound impound = new Impound(createImpoundRequest.getImpoundOrigin(),createImpoundRequest.getVehicleLocation(),createImpoundRequest.getImpoundAuthority(),createImpoundRequest.getImpoundDate(),createImpoundRequest.getIsLinkedToReport(),createImpoundRequest.getReportNum());
+        Impound impound = new Impound(createImpoundRequest.getImpoundOrigin(),createImpoundRequest.getImpoundType(),createImpoundRequest.getVehicleLocation(),createImpoundRequest.getImpoundAuthority(),createImpoundRequest.getImpoundDate(),createImpoundRequest.getIsLinkedToReport(),createImpoundRequest.getReportNum());
       return  impoundRepository.save(impound).getImpoundId();
     }
 
-    public CreateImpoundRequest getImpoundDetails(Long impoundId)
+    public GetImpoundResponse getImpoundDetails(Long impoundId)
     {
         Impound impound=impoundRepository.findById(impoundId).orElse(null);
 
-        CreateImpoundRequest newImpoundRequest = new CreateImpoundRequest(
+        GetImpoundResponse newImpoundRequest = new GetImpoundResponse(
                impound.getImpoundOrigin(),
-                impound.getImpoundType().toString(),
+                impound.getImpoundType(),
                 impound.getImpoundAuthority(),
                 impound.getVehicleLocation(),
                 impound.getImpoundDate(),
@@ -33,6 +34,19 @@ public class ImpoundService {
                 );
         return newImpoundRequest;
 
+    }
+
+    public String deleteImpound(Long impoundId)
+    {
+        boolean impoundExists = impoundRepository.existsById(impoundId);
+        if(impoundExists)
+        {
+            impoundRepository.deleteById(impoundId);
+            return "Impound that has the id : " + impoundId + " is completely deleted";
+        }
+        else {
+            return "Impound that has the id : " + impoundId + " does not exist";
+        }
     }
 
 }

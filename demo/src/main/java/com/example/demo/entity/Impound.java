@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.example.demo.ENUMS.EType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
@@ -27,7 +28,7 @@ public class Impound {
 
     private String impoundOrigin;
     @Enumerated(EnumType.STRING)
-    public ImpoundType impoundType ;
+    public EType impoundType ;
     private String impoundAuthority;
     private String vehicleLocation;
     private LocalDate impoundDate;
@@ -35,10 +36,22 @@ public class Impound {
     private String reportNum;
 
 
-
-    public Impound(String impoundOrigin, String vehicleLocation, String impoundAuthority, LocalDate impoundDate, Boolean isLinkedToReport, String reportNum) {
+    public Impound(Long impoundId, Vehicle vehicle, String impoundOrigin, EType impoundType, String impoundAuthority, String vehicleLocation, LocalDate impoundDate, Boolean isLinkedToReport, String reportNum) {
+        this.impoundId = impoundId;
+        this.vehicle = vehicle;
         this.impoundOrigin = impoundOrigin;
+        this.impoundType = impoundType;
+        this.impoundAuthority = impoundAuthority;
         this.vehicleLocation = vehicleLocation;
+        this.impoundDate = impoundDate;
+        this.isLinkedToReport = isLinkedToReport;
+        this.reportNum = reportNum;
+    }
+
+    public Impound(String impoundOrigin,EType impoundtype ,String vehiclelocation, String impoundAuthority, LocalDate impoundDate, Boolean isLinkedToReport, String reportNum) {
+        this.impoundOrigin = impoundOrigin;
+        this.impoundType = impoundtype;
+        this.vehicleLocation = vehiclelocation;
         this.impoundAuthority = impoundAuthority;
         this.impoundDate = impoundDate;
         this.isLinkedToReport = isLinkedToReport;
@@ -62,7 +75,7 @@ public class Impound {
         this.impoundOrigin="inside";
         this.isLinkedToReport=false;
         this.reportNum=null;
-        this.impoundType=ImpoundType.TRAFFICALLY;
+        this.impoundType=impoundType.TRAFFICALLY;
         this.impoundAuthority="UAE";
         this.impoundDate=LocalDate.now();
     }
@@ -123,16 +136,12 @@ public class Impound {
         this.reportNum = reportNum;
     }
 
-    public ImpoundType getImpoundType() {
+    public EType getImpoundType() {
         return impoundType;
     }
 
-    public void setImpoundType(ImpoundType impoundType) {
+    public void setImpoundType(EType impoundType) {
         this.impoundType = impoundType;
     }
 
-    public enum ImpoundType {
-        TRAFFICALLY,
-        CRIMINALLY
-    }
 }

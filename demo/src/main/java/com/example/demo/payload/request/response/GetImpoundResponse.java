@@ -1,10 +1,10 @@
 package com.example.demo.payload.request.response;
 
 import com.example.demo.ENUMS.EType;
-import com.example.demo.entity.Impound;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
@@ -12,10 +12,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class CreateImpoundRequest {
-
-
+public class GetImpoundResponse {
     private String impoundOrigin;
 
     public EType impoundType ;

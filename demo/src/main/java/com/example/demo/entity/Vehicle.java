@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.example.demo.ENUMS.EColor;
 import com.example.demo.payload.request.response.AddNewVehicle;
 import jakarta.persistence.*;
 
@@ -25,39 +26,29 @@ public class Vehicle {
     private Owner owner;
 
 
-    private Long chaseNumber;
+    private String chaseNumber;
     private String impoundId;
     private String ownerName;
     private String make;
     private String model;
-    private String year;
+    private int year;
     private String ownershipStatus;
     private LocalDate insuranceExpiryDate;
     private Boolean wanted;
     @Enumerated(EnumType.STRING)
-    public vehicleColor vehiclecolor;
+    public EColor vehiclecolor;
     private int recordsNum;
     private String customCardNum;
     private String vehicleType;
     private String plateNumber;
     private Double totalRecords;
 
-    public Vehicle(Long chaseNumber, String ownerName, String make, String model, String ownershipStatus, LocalDate insuranceExpiryDate, Boolean wanted, AddNewVehicle.vehicleColor vehiclecolor, int recordsNum, String customCardNum, String vehicleType, String plateNumber, Double totalRecords) {
-        this.chaseNumber = chaseNumber;
-    }
-    public Vehicle() {}
-
-    public Vehicle(Long chaseNumber, String impoundId, Boolean wanted) {
-        this.chaseNumber = chaseNumber;
-        this.impoundId = impoundId;
-        this.wanted = wanted;
-    }
-
-    public Vehicle(Long chaseNumber, String ownerName, String make, String model, String ownershipStatus, LocalDate insuranceExpiryDate, Boolean wanted, vehicleColor vehiclecolor, int recordsNum, String customCardNum, String vehicleType, String plateNumber, Double totalRecords) {
+    public Vehicle(String chaseNumber, String ownerName, String make, String model,int year, String ownershipStatus, LocalDate insuranceExpiryDate, Boolean wanted,  EColor vehiclecolor, int recordsNum, String customCardNum, String vehicleType, String plateNumber, Double totalRecords) {
         this.chaseNumber = chaseNumber;
         this.ownerName = ownerName;
         this.make = make;
         this.model = model;
+        this.year = year;
         this.ownershipStatus = ownershipStatus;
         this.insuranceExpiryDate = insuranceExpiryDate;
         this.wanted = wanted;
@@ -68,8 +59,17 @@ public class Vehicle {
         this.plateNumber = plateNumber;
         this.totalRecords = totalRecords;
     }
+    public Vehicle() {}
 
-    public Vehicle(Long chaseNumber, String plateNumber) {
+    public Vehicle(String chaseNumber, String impoundId, Boolean wanted) {
+        this.chaseNumber = chaseNumber;
+        this.impoundId = impoundId;
+        this.wanted = wanted;
+    }
+
+
+
+    public Vehicle(String chaseNumber, String plateNumber) {
         this.chaseNumber = chaseNumber;
         this.plateNumber = plateNumber;
     }
@@ -83,10 +83,10 @@ public class Vehicle {
     }
 
 
-    public Long getChaseNumber() {
+    public String getChaseNumber() {
         return chaseNumber;
     }
-    public void setChaseNumber(Long chaseNumber) {
+    public void setChaseNumber(String chaseNumber) {
         this.chaseNumber = chaseNumber;
     }
 
@@ -185,25 +185,21 @@ public class Vehicle {
         this.totalRecords = totalRecords;
     }
 
-    public String getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(String year) {
+    public void setYear(int year) {
         this.year = year;
     }
 
-    public vehicleColor getVehiclecolor() {
+    public EColor getVehiclecolor() {
         return vehiclecolor;
     }
 
-    public void setVehiclecolor(vehicleColor vehiclecolor) {
+    public void setVehiclecolor(EColor vehiclecolor) {
         this.vehiclecolor = vehiclecolor;
     }
 
 
-    public enum vehicleColor
-    {
-        WHITE, BLACK, GREEN, YELLOW, ORANGE, PINK, BLUE, GREY, PURPLE
-    }
 }
