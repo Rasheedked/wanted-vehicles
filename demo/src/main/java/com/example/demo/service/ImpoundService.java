@@ -1,11 +1,14 @@
 package com.example.demo.service;
 
+import com.example.demo.ENUMS.EType;
 import com.example.demo.entity.Impound;
 import com.example.demo.payload.request.response.CreateImpoundRequest;
 import com.example.demo.payload.request.response.GetImpoundResponse;
 import com.example.demo.repository.ImpoundRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 
 @Service
 public class ImpoundService {
@@ -47,6 +50,44 @@ public class ImpoundService {
         else {
             return "Impound that has the id : " + impoundId + " does not exist";
         }
+    }
+
+    public String updateImpound(Long impoundId, CreateImpoundRequest updateRequest)
+    {
+        Impound impound=impoundRepository.findById(impoundId).orElse(null);
+        if(impound!=null)
+        {
+
+            if (updateRequest.getImpoundOrigin() != null && !updateRequest.getImpoundOrigin().isEmpty()) {
+                impound.setImpoundOrigin(updateRequest.getImpoundOrigin());
+            }
+            if (updateRequest.getImpoundType() != null) {
+                impound.setImpoundType(updateRequest.getImpoundType());
+            }
+            if (updateRequest.getImpoundAuthority() != null && !updateRequest.getImpoundAuthority().isEmpty()) {
+                impound.setImpoundAuthority(updateRequest.getImpoundAuthority());
+            }
+            if (updateRequest.getVehicleLocation() != null && !updateRequest.getVehicleLocation().isEmpty()) {
+                impound.setVehicleLocation(updateRequest.getVehicleLocation());
+            }
+            if (updateRequest.getImpoundDate() != null) {
+                impound.setImpoundDate(updateRequest.getImpoundDate());
+            }
+            if (updateRequest.getIsLinkedToReport() != null) {
+                impound.setLinkedToReport(updateRequest.getIsLinkedToReport());
+            }
+            if (updateRequest.getReportNum() != null && !updateRequest.getReportNum().isEmpty()) {
+                impound.setReportNum(updateRequest.getReportNum());
+            }
+            impoundRepository.save(impound);
+            return "Impound with id : " + impoundId + " has been updated";
+
+        }
+        else
+        {
+            return "Impound with id : " + impoundId + " does not exist";
+        }
+
     }
 
 }

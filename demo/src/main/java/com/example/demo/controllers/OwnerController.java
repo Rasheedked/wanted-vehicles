@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.payload.request.response.AddOwnerRequest;
+import com.example.demo.payload.request.response.CreateImpoundRequest;
 import com.example.demo.payload.request.response.GetOwnerDetailsResponse;
 import com.example.demo.payload.request.response.GetVehicleResponse;
 import com.example.demo.service.OwnerService;
@@ -30,6 +31,14 @@ public class OwnerController {
     public String deleteOwner(@PathVariable("owner_Id") Long ownerId)
     {
         return ownerService.deleteOwner(ownerId);
+    }
+
+    @PutMapping(path="/update/{owner_Id}")
+    public String updateStudent(@PathVariable("owner_Id") Long ownerId ,
+                                @RequestBody AddOwnerRequest updateOwnerRequest)
+    {
+        return ownerService.updateOwner(ownerId, updateOwnerRequest);
+
     }
 
 }

@@ -62,9 +62,52 @@ public class OwnerService {
             ownerRepository.deleteById(ownerId);
             return "owner that has the id : " + ownerId + " is completely deleted";
         }
-        else {
+        else
+        {
             return "owner that has the id : " + ownerId + " does not exist";
         }
+    }
+
+
+    public String updateOwner(Long ownerId, AddOwnerRequest updateOwnerRequest)
+    {
+        Owner owner = ownerRepository.findById(ownerId).orElse(null);
+
+        if (owner != null) {
+            if (updateOwnerRequest.getNationality() != null) {
+                owner.setNationality(updateOwnerRequest.getNationality());
+            }
+            if (updateOwnerRequest.getTransactionNo() != null) {
+                owner.setTransactionNo(updateOwnerRequest.getTransactionNo());
+            }
+            if (updateOwnerRequest.getTransferTo() != null) {
+                owner.setTransferTo(updateOwnerRequest.getTransferTo());
+            }
+            if (updateOwnerRequest.getTestResult() != null) {
+                owner.setTestResult(updateOwnerRequest.getTestResult());
+            }
+            if (updateOwnerRequest.getAddressingParty() != null) {
+                owner.setAddressingParty(updateOwnerRequest.getAddressingParty());
+            }
+            if (updateOwnerRequest.getOrderBook() != null) {
+                owner.setOrderBook(updateOwnerRequest.getOrderBook());
+            }
+            if (updateOwnerRequest.getOrderType() != null) {
+                owner.setOrderType(updateOwnerRequest.getOrderType());
+            }
+            if (updateOwnerRequest.getAddressingDate() != null) {
+                owner.setAddressingDate(updateOwnerRequest.getAddressingDate());
+            }
+            if (updateOwnerRequest.getOrderDate() != null) {
+                owner.setOrderDate(updateOwnerRequest.getOrderDate());
+            }
+
+            ownerRepository.save(owner);
+            return "Owner with ID: " + ownerId + " has been updated.";
+        } else {
+            return "Owner with ID: " + ownerId + " does not exist.";
+        }
+
     }
 
 }

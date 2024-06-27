@@ -3,7 +3,6 @@ package com.example.demo.controllers;
 import com.example.demo.payload.request.response.CreateImpoundRequest;
 import com.example.demo.payload.request.response.GetImpoundResponse;
 import com.example.demo.service.ImpoundService;
-import com.example.demo.entity.Impound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +35,13 @@ public class ImpoundController {
         return impoundService.deleteImpound(impoundId);
     }
 
+    @PutMapping(path="/update/{impound_Id}")
+    public String updateStudent(@PathVariable("impound_Id") Long impoundId,
+                             @RequestBody CreateImpoundRequest updateImpoundRequest)
+    {
+        return impoundService.updateImpound(impoundId, updateImpoundRequest);
+
+    }
 
 
 }

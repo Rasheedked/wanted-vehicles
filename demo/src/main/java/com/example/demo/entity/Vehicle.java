@@ -1,7 +1,6 @@
 package com.example.demo.entity;
 
 import com.example.demo.ENUMS.EColor;
-import com.example.demo.payload.request.response.AddNewVehicle;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

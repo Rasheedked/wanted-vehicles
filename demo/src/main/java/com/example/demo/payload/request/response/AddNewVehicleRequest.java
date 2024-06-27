@@ -1,21 +1,18 @@
 package com.example.demo.payload.request.response;
 
 import com.example.demo.ENUMS.EColor;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddNewVehicle {
+public class AddNewVehicleRequest {
 
     private String chaseNumber;
     private String impoundId;

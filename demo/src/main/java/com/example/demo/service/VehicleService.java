@@ -1,13 +1,11 @@
 package com.example.demo.service;
 
+import com.example.demo.ENUMS.EColor;
 import com.example.demo.entity.Impound;
 import com.example.demo.entity.Vehicle;
-import com.example.demo.payload.request.response.AddNewVehicle;
-import com.example.demo.payload.request.response.CreateImpoundRequest;
+import com.example.demo.payload.request.response.AddNewVehicleRequest;
 import com.example.demo.payload.request.response.GetVehicleResponse;
 import com.example.demo.repository.VehicleRepository;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,21 +16,21 @@ public class VehicleService {
     @Autowired
     private  VehicleRepository vehicleRepository;
 
-    public Long addNewVehicle(AddNewVehicle addNewVehicle) {
-        Vehicle vehicle = new Vehicle(addNewVehicle.getChaseNumber(),
-                addNewVehicle.getOwnerName()
-                ,addNewVehicle.getMake()
-                , addNewVehicle.getModel()
-                ,addNewVehicle.getYear()
-                , addNewVehicle.getOwnershipStatus()
-                ,addNewVehicle.getInsuranceExpiryDate()
-                ,addNewVehicle.getWanted()
-                ,addNewVehicle.getVehiclecolor()
-                , addNewVehicle.getRecordsNum()
-                , addNewVehicle.getCustomCardNum()
-                , addNewVehicle.getVehicleType()
-                , addNewVehicle.getPlateNumber()
-                ,addNewVehicle.getTotalRecords());
+    public Long addNewVehicle(AddNewVehicleRequest addNewVehicleRequest) {
+        Vehicle vehicle = new Vehicle(addNewVehicleRequest.getChaseNumber(),
+                addNewVehicleRequest.getOwnerName()
+                , addNewVehicleRequest.getMake()
+                , addNewVehicleRequest.getModel()
+                , addNewVehicleRequest.getYear()
+                , addNewVehicleRequest.getOwnershipStatus()
+                , addNewVehicleRequest.getInsuranceExpiryDate()
+                , addNewVehicleRequest.getWanted()
+                , addNewVehicleRequest.getVehiclecolor()
+                , addNewVehicleRequest.getRecordsNum()
+                , addNewVehicleRequest.getCustomCardNum()
+                , addNewVehicleRequest.getVehicleType()
+                , addNewVehicleRequest.getPlateNumber()
+                , addNewVehicleRequest.getTotalRecords());
         return vehicleRepository.save(vehicle).getVehicle_id();
     }
 
@@ -75,4 +73,68 @@ public class VehicleService {
             return "vehicle that has the id : " + vehicleId + " does not exist";
         }
     }
+
+    public String updateVehicle(Long vehicleId,AddNewVehicleRequest updateVehicleRequest)
+    {
+        Vehicle vehicle=vehicleRepository.findById(vehicleId).orElse(null);
+        if(vehicle!=null)
+        {
+
+            if (updateVehicleRequest.getChaseNumber() != null && !updateVehicleRequest.getChaseNumber().isEmpty()) {
+                vehicle.setChaseNumber(updateVehicleRequest.getChaseNumber());
+            }
+            if (updateVehicleRequest.getImpoundId() != null && !updateVehicleRequest.getImpoundId().isEmpty()) {
+                vehicle.setImpoundId(updateVehicleRequest.getImpoundId());
+            }
+            if (updateVehicleRequest.getOwnerName() != null && !updateVehicleRequest.getOwnerName().isEmpty()) {
+                vehicle.setOwnerName(updateVehicleRequest.getOwnerName());
+            }
+            if (updateVehicleRequest.getMake() != null && !updateVehicleRequest.getMake().isEmpty()) {
+                vehicle.setMake(updateVehicleRequest.getMake());
+            }
+            if (updateVehicleRequest.getModel() != null && !updateVehicleRequest.getModel().isEmpty()) {
+                vehicle.setModel(updateVehicleRequest.getModel());
+            }
+            if (updateVehicleRequest.getYear() != 0) {
+                vehicle.setYear(updateVehicleRequest.getYear());
+            }
+            if (updateVehicleRequest.getOwnershipStatus() != null && !updateVehicleRequest.getOwnershipStatus().isEmpty()) {
+                vehicle.setOwnershipStatus(updateVehicleRequest.getOwnershipStatus());
+            }
+            if (updateVehicleRequest.getInsuranceExpiryDate() != null) {
+                vehicle.setInsuranceExpiryDate(updateVehicleRequest.getInsuranceExpiryDate());
+            }
+            if (updateVehicleRequest.getWanted() != null) {
+                vehicle.setWanted(updateVehicleRequest.getWanted());
+            }
+            if (updateVehicleRequest.getVehiclecolor() != null) {
+                vehicle.setVehiclecolor(updateVehicleRequest.getVehiclecolor());
+            }
+            if (updateVehicleRequest.getRecordsNum() != 0) {
+                vehicle.setRecordsNum(updateVehicleRequest.getRecordsNum());
+            }
+            if (updateVehicleRequest.getCustomCardNum() != null && !updateVehicleRequest.getCustomCardNum().isEmpty()) {
+                vehicle.setCustomCardNum(updateVehicleRequest.getCustomCardNum());
+            }
+            if (updateVehicleRequest.getVehicleType() != null && !updateVehicleRequest.getVehicleType().isEmpty()) {
+                vehicle.setVehicleType(updateVehicleRequest.getVehicleType());
+            }
+            if (updateVehicleRequest.getPlateNumber() != null && !updateVehicleRequest.getPlateNumber().isEmpty()) {
+                vehicle.setPlateNumber(updateVehicleRequest.getPlateNumber());
+            }
+            if (updateVehicleRequest.getTotalRecords() != null) {
+                vehicle.setTotalRecords(updateVehicleRequest.getTotalRecords());
+            }
+            vehicleRepository.save(vehicle);
+            return "Vehicle with id : " + vehicleId + " has been updated";
+
+        }
+        else
+        {
+            return "Vehicle with id : " + vehicleId + " does not exist";
+        }
+
+    }
+
+
 }
